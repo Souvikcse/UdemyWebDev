@@ -9,7 +9,8 @@ app.use(bodyParser.urlencoded({extended:true}));
 
 var campgroundSchema = new mongoose.Schema({
     name: String,
-    image: String
+    image: String, 
+    description: String
 });
 var Campground = mongoose.model("Campground", campgroundSchema);
 app.get("/", function(req, res){
@@ -26,7 +27,8 @@ app.get('/campgrounds', function(req, res){
 app.post('/campgrounds', function(req, res){
     var name = req.body.name;
     var image = req.body.image;
-    Campground.create({name: name, image: image}, function(err, newlycreated){
+    var desc = req.body.desc;
+    Campground.create({name: name, image: image, description: desc}, function(err, newlycreated){
         if(err)   console.log(err);
         else{
             console.log("New Campground");
