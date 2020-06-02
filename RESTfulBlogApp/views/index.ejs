@@ -1,14 +1,19 @@
 <%- include ("partials/header") %>
 
-<h1>INDEX PAGE</h1>
-<% blogs.forEach(function(blog){%>
-    <div>
-        <img src="<%= blog.image %>">
-        <strong><%= blog.created %></strong>
-        <p>
-            <%= blog.title %>
-        </p>
+<div class="ui items container text main divided">
+    <div class="ui huge header">INDEX PAGE</div>
+    <% blogs.forEach(function(blog){%>
+    <div class="item segment">
+        <div class="image"><img src="<%= blog.image %>"></div>
+        <div class="content">
+            <a href="/blogs/<%= blog._id %>" class="header"><%= blog.title %></a>
+            <div class="meta">
+                <span><%= blog.created.toDateString() %></span>
+            </div>
+            <a href="/blogs/<%= blog._id %>" class="ui primary basic button">Read more <i class="chevron right icon"></i></a>
+        </div>
     </div>
-<% }) %>
+    <% }) %>
+</div>
 
 <%- include ("partials/footer") %>
