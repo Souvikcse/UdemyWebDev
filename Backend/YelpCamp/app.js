@@ -2,17 +2,16 @@ var express = require('express')
 var app = express()
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
+var Comment = require('./models/comment.js');
+var seedDb = require('./seeds');
 
 mongoose.connect("mongodb://localhost:27017/yelp_camp", {useNewUrlParser: true, useUnifiedTopology: true});
 app.set("view engine", "ejs");
 app.use(bodyParser.urlencoded({extended:true}));
 
-var campgroundSchema = new mongoose.Schema({
-    name: String,
-    image: String, 
-    description: String
-});
-var Campground = mongoose.model("Campground", campgroundSchema);
+var Campground = require('./models/campground');
+
+seedDb();
 app.get("/", function(req, res){
     res.render("landing");
 });
@@ -42,13 +41,23 @@ app.get('/campgrounds/new', function(req, res){
 })
 
 app.get('/campgrounds/:id', function(req, res){
-    Campground.findById(req.params.id, function(err, foundcampground){
+    Campground.findById(req.params.id).populate('comments').exec(function(err, foundcampground){
         if(err)    console.log(err);
         else{
+            console.log(foundcampground);
             res.render("show", {campground: foundcampground});
         }
     })
-})
+});
+
+// ====================================
+// Comments Routes
+// ====================================
+
+
+
+
+
 app.listen(3000, function(){
     console.log("YelpCamp Server started");
 })

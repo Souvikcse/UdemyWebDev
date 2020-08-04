@@ -7,4 +7,10 @@
 
 <p><h3><%= campground.description %></h3></p>
 
+<h4>Comments</h4>
+<% campground.comments.forEach(function(comment) {  %>
+    <p>
+        <strong><%= comment.author %></strong> - <%= comment.text %>
+    </p>
+<% }) %>
 <%- include ("partials/footer") %>
