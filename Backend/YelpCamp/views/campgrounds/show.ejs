@@ -21,13 +21,13 @@
             </div>
             <div class="well">
                 <div class="text-right">
-                    <button onclick="show()" class="btn btn-lg btn-success">Add a Comment</button>
+                    <button onclick="show()" class="btn btn-lg btn-success" id="addComment">Add a Comment</button>
                 </div>
                 <div id="comment-section" style="display: none;">
                     <h3>Leave us a Comment</h3>
                     <form action="/campgrounds/<%= campground._id %>/comments" method="POST">
                         <textarea id="com" name="comment[text]"  rows="1" placeholder="Add a public comment" required></textarea>
-                        <textarea id="com" name="comment[author]" rows="1" placeholder="Add your Name" required></textarea>
+                        <!-- <textarea id="com" name="comment[author]" rows="1" placeholder="Add your Name"></textarea> -->
                 
                         <input type="submit" class="btn btn-md btn-primary">
                         <!-- <button class="btn btn-md btn-light">Cancel</button> -->
@@ -37,7 +37,7 @@
                     <h3><strong>Comments</strong></h3>
                     <% campground.comments.forEach(function(comment) {  %>
                         <div>
-                            <strong><%= comment.author %></strong>
+                            <strong><%= comment.author.username %></strong>
                             <span class="pull-right">10 days ago</span>
                         </div>
                         <div>
