@@ -1,16 +1,62 @@
  
-<%- include ("partials/header") %>
+<%- include ("../partials/header") %>
 
-<h1> <%=campground.name%> </h1>
+<div class="container">
+    <div class="row">
+        <div class="col-sm-12 col-md-3">
+            <div class="list-group">
+                <a href="#" class="list-group-item active">Info 1</a>
+                <a href="#" class="list-group-item">Info 1</a>
+                <a href="#" class="list-group-item">Info 1</a>
+            </div>
+        </div>
+        <div class="col-sm-12 col-md-9">
+            <div class="thumbnail">
+                <img src="<%= campground.image %>" class="img-responsive" >
+                <div class="caption-full">
+                    <h4 class="pull-right">$9.00/night</h4>
+                    <h3><a style="cursor: pointer;"><%= campground.name %></a></h3>
+                    <p style="font-size: 1.3em;"><%= campground.description %></p>
+                </div>
+            </div>
+            <div class="well">
+                <div class="text-right">
+                    <button onclick="show()" class="btn btn-lg btn-success">Add a Comment</button>
+                </div>
+                <div id="comment-section" style="display: none;">
+                    <h3>Leave us a Comment</h3>
+                    <form action="/campgrounds/<%= campground._id %>/comments" method="POST">
+                        <textarea id="com" name="comment[text]"  rows="1" placeholder="Add a public comment" required></textarea>
+                        <textarea id="com" name="comment[author]" rows="1" placeholder="Add your Name" required></textarea>
+                
+                        <input type="submit" class="btn btn-md btn-primary">
+                        <!-- <button class="btn btn-md btn-light">Cancel</button> -->
+                    </form>
+                </div>
+                <div>
+                    <h3><strong>Comments</strong></h3>
+                    <% campground.comments.forEach(function(comment) {  %>
+                        <div>
+                            <strong><%= comment.author %></strong>
+                            <span class="pull-right">10 days ago</span>
+                        </div>
+                        <div>
+                            <%= comment.text %>
+                        </div>
+                    <% }) %>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
-<img src="<%= campground.image %>">
+<!-- <img src="<%= campground.image %>" style="width: 100%; height: 50em; padding: 10em;"> -->
 
-<p><h3><%= campground.description %></h3></p>
+<!-- <p><h3><%= campground.description %></h3></p> -->
 
-<h4>Comments</h4>
-<% campground.comments.forEach(function(comment) {  %>
-    <p>
-        <strong><%= comment.author %></strong> - <%= comment.text %>
-    </p>
-<% }) %>
-<%- include ("partials/footer") %>
+<script>
+    function show(){
+        document.querySelector('#comment-section').style.display = "block";
+    }
+</script>
+<%- include ("../partials/footer") %>
