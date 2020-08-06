@@ -12,9 +12,9 @@ router.post('/', isLoggedIn, function(req, res){
         if(err)   res.redirect('/campgrounds');
         else{
             // console.log(campground);
-            console.log(req.user);
+            // console.log(req.user);
             Comment.create(req.body.comment, function(err, comment){
-                if(err)   console.log(err)
+                if(err)   console.log(err);
                 else{
                     comment.author.id = req.user._id;
                     comment.author.username = req.user.username;
